@@ -5,5 +5,37 @@
   "description": "Show your password in a readable format in the password fields of the web pages.",
   "author": "Danilo Treffiletti <urban82@gmail.com>",
   "license": "MPL 2.0",
-  "version": "0.1"
+  "version": "0.1",
+  "preferences": [
+    {
+        "name": "showDelay",
+        "title": "showDelay",
+        "type": "integer",
+        "value": 2
+    },
+    {
+        "name": "hideDelay",
+        "title": "hideDelay",
+        "type": "integer",
+        "value": 2
+    },
+    {
+        "name": "customColors",
+        "title": "customColors",
+        "type": "bool",
+        "value": true
+    },
+    {
+        "name": "foreground",
+        "title": "foreground",
+        "type": "color",
+        "value": "#FF0000"
+    },
+    {
+        "name": "background",
+        "title": "background",
+        "type": "color",
+        "value": "#FFFFFF"
+    }
+  ]
 }
