@@ -3,7 +3,7 @@
   "title": "Show Password Field",
   "id": "ShowPasswordField@danilo.treffiletti.it",
   "description": "Show your password in a readable format in the password fields of the web pages.",
-  "author": "Danilo Treffiletti <urban82@gmail.com>",
+  "author": "Danilo Treffiletti",
   "license": "MPL 2.0",
   "version": "0.1",
   "preferences": [
