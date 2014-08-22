@@ -5,6 +5,11 @@ var customColors = true;
 var foreground = "#FF0000";
 var background = "#FFFFFF";
 
+function myLog(message) {
+    if (debug)
+        console.log(message);
+}
+
 self.port.on("pref-init", function(prefs) {
     debug = prefs[0]
     showDelay = prefs[1];
@@ -12,7 +17,7 @@ self.port.on("pref-init", function(prefs) {
     customColors = prefs[3];
     foreground = prefs[4];
     background = prefs[5];
-    console.log("Initialized preferences - show:" + showDelay + "s hide:" + hideDelay + "s foreground:" + (customColors ? foreground : "none") + " background:" + (customColors ? background : "none"));
+    myLog("Initialized preferences - show:" + showDelay + " s - hide:" + hideDelay + " s - foreground:" + (customColors ? foreground : "none") + " - background:" + (customColors ? background : "none"));
 });
 
 self.port.on("pref-changed", function(prefs) {
@@ -36,7 +41,7 @@ self.port.on("pref-changed", function(prefs) {
             background = prefs[1];
             break;
     }
-    console.log("Updated preference " + prefs[0]);
+    myLog("Updated preference " + prefs[0]);
 });
 
 function ShowPasswordField(obj) {
@@ -50,15 +55,22 @@ function ShowPasswordField(obj) {
     self.foreground = self.obj.style.color;
     self.background = self.obj.style.background;
 
+    self.log = function(message) {
+        myLog("[" + self.obj.name + "] " + message);
+    };
+
     self.onEnter = function() {
         if (self.hiddenWithoutExit) return; // Avoid re-show after an hide for blur
+        self.log("Entered");
         // Cancel hide action
         if (self.hideTimer != null) {
+            self.log("Entered - Cancelled hide");
             window.clearTimeout(self.hideTimer);
             self.hideTimer = null;
         }
         // Set show action
         if (self.showTimer == null) {
+            self.log("Entered - Show in " + showDelay + " s");
             self.showTimer = window.setTimeout(
                 function() {
                     self.showTimer = null;
@@ -69,13 +81,16 @@ function ShowPasswordField(obj) {
         }
     };
     self.onExit = function() {
+        self.log("Exited");
         // Cancel show action
         if (self.showTimer != null) {
+            self.log("Exited - Cancelled show");
             window.clearTimeout(self.showTimer);
             self.showTimer = null;
         }
         // Set hide action
         if (self.hideTimer == null) {
+            self.log("Exited - Hide in " + hideDelay + " s");
             self.hideTimer = window.setTimeout(
                 function() {
                     self.hideTimer = null;
@@ -107,12 +122,14 @@ function ShowPasswordField(obj) {
     };
     self.show = function() {
         if (!self.showed) {
+            self.log("Show");
             self.change("text", foreground, background);
             self.showed = true;
         }
     };
     self.hide = function() {
         if (self.showed) {
+            self.log("Hide");
             self.change("password", self.foreground, self.background);
             self.showed = false;
             self.hiddenWithoutExit = true;
@@ -131,8 +148,8 @@ for (var i = 0; i < num_inputFields; ++i) {
     var field = inputFields[i];
     if (field.type.toLowerCase() != "password")
         continue;
-    console.log("Found - " + field.name);
+    myLog("Found - " + field.name);
     new ShowPasswordField(field);
     ++num_passwordFields;
 }
-console.log("Setup done for " + num_passwordFields + " password fields");
+myLog("Setup done for " + num_passwordFields + " password fields");
