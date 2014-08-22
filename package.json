@@ -6,6 +6,9 @@
   "author": "Danilo Treffiletti",
   "license": "MPL 2.0",
   "version": "0.3",
+  "permissions": {
+    "private-browsing": true
+  },
   "preferences": [
     {
         "name": "debug",
