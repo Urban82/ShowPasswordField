@@ -141,15 +141,17 @@ function ShowPasswordField(obj) {
     self.obj.addEventListener("blur", self.hide, false);
 }
 
-var inputFields = document.getElementsByTagName("input");
-var num_inputFields = inputFields.length;
-var num_passwordFields = 0;
-for (var i = 0; i < num_inputFields; ++i) {
-    var field = inputFields[i];
-    if (field.type.toLowerCase() != "password")
-        continue;
-    myLog("Found - " + field.name);
-    new ShowPasswordField(field);
-    ++num_passwordFields;
-}
-myLog("Setup done for " + num_passwordFields + " password fields");
+self.port.on("start", function() {
+    var inputFields = document.getElementsByTagName("input");
+    var num_inputFields = inputFields.length;
+    var num_passwordFields = 0;
+    for (var i = 0; i < num_inputFields; ++i) {
+        var field = inputFields[i];
+        if (field.type.toLowerCase() != "password")
+            continue;
+        myLog("Found - " + field.name);
+        new ShowPasswordField(field);
+        ++num_passwordFields;
+    }
+    myLog("Setup done for " + num_passwordFields + " password fields");
+});
