@@ -69,7 +69,7 @@ function ShowPasswordField(obj) {
             self.hideTimer = null;
         }
         // Set show action
-        if (self.showTimer == null) {
+        if (!self.showed && self.showTimer == null) {
             self.log("Entered - Show in " + showDelay + " s");
             self.showTimer = window.setTimeout(
                 function() {
@@ -89,7 +89,7 @@ function ShowPasswordField(obj) {
             self.showTimer = null;
         }
         // Set hide action
-        if (self.hideTimer == null) {
+        if (self.showed && self.hideTimer == null) {
             self.log("Exited - Hide in " + hideDelay + " s");
             self.hideTimer = window.setTimeout(
                 function() {
