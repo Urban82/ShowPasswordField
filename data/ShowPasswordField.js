@@ -117,7 +117,7 @@ function ShowPasswordField(obj) {
     self.obj.addEventListener("blur", self.hide, false);
 }
 
-var passwordFields = document.evaluate('//input[@type="password"]', document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+var passwordFields = document.evaluate('.//input[@type="password"]', document.body, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 var num_passwordFields = passwordFields.snapshotLength;
 for (var i = 0; i < num_passwordFields; ++i) {
     console.log("Found - " + passwordFields.snapshotItem(i).name);
