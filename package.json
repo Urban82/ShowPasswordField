@@ -5,7 +5,7 @@
   "description": "Show your password in a readable format in the password fields of the web pages.",
   "author": "Danilo Treffiletti",
   "license": "MPL 2.0",
-  "version": "0.1",
+  "version": "0.2",
   "preferences": [
     {
         "name": "showDelay",
