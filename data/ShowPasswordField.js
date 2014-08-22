@@ -117,10 +117,15 @@ function ShowPasswordField(obj) {
     self.obj.addEventListener("blur", self.hide, false);
 }
 
-var passwordFields = document.evaluate('.//input[@type="password"]', document.body, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
-var num_passwordFields = passwordFields.snapshotLength;
-for (var i = 0; i < num_passwordFields; ++i) {
-    console.log("Found - " + passwordFields.snapshotItem(i).name);
-    new ShowPasswordField(passwordFields.snapshotItem(i));
+var inputFields = document.getElementsByTagName("input");
+var num_inputFields = inputFields.length;
+var num_passwordFields = 0;
+for (var i = 0; i < num_inputFields; ++i) {
+    var field = inputFields[i];
+    if (field.type.toLowerCase() != "password")
+        continue;
+    console.log("Found - " + field.name);
+    new ShowPasswordField(field);
+    ++num_passwordFields;
 }
 console.log("Setup done for " + num_passwordFields + " password fields");
