@@ -8,6 +8,13 @@
   "version": "0.3",
   "preferences": [
     {
+        "name": "debug",
+        "title": "debug",
+        "type": "bool",
+        "value": false,
+        "hidden": true
+    },
+    {
         "name": "showDelay",
         "title": "showDelay",
         "type": "integer",

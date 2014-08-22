@@ -1,3 +1,4 @@
+var debug = false;
 var showDelay = 2;
 var hideDelay = 2;
 var customColors = true;
@@ -5,15 +6,20 @@ var foreground = "#FF0000";
 var background = "#FFFFFF";
 
 self.port.on("pref-init", function(prefs) {
-    var showDelay = prefs[0];
-    var hideDelay = prefs[1];
-    var customColors = prefs[2];
-    var foreground = prefs[3];
-    var background = prefs[4];
+    debug = prefs[0]
+    showDelay = prefs[1];
+    hideDelay = prefs[2];
+    customColors = prefs[3];
+    foreground = prefs[4];
+    background = prefs[5];
+    console.log("Initialized preferences - show:" + showDelay + "s hide:" + hideDelay + "s foreground:" + (customColors ? foreground : "none") + " background:" + (customColors ? background : "none"));
 });
 
 self.port.on("pref-changed", function(prefs) {
     switch (prefs[0]) {
+        case "debug":
+            debug = prefs[1];
+            break;
         case "showDelay":
             showDelay = prefs[1];
             break;
@@ -30,6 +36,7 @@ self.port.on("pref-changed", function(prefs) {
             background = prefs[1];
             break;
     }
+    console.log("Updated preference " + prefs[0]);
 });
 
 function ShowPasswordField(obj) {
